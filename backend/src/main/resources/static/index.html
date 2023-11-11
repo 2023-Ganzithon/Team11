@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send GET Request</title>
+</head>
+<body>
+<button id="sendRequestButton">Send GET Request</button>
+
+<script>
+    document.getElementById('sendRequestButton').addEventListener('click', function () {
+        // URL 설정
+        var url = 'http://localhost:8080/oauth/kakao/login/uri';
+
+        // GET 요청 보내기
+        fetch(url, {
+            method: 'GET',
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    // 성공적인 응답인 경우 리다이렉트
+                    window.location.href = 'https://kauth.kakao.com/oauth/authorize?client_id=b2ab780455c39f6ef142de63098fdd83&redirect_uri=http://localhost:8080/oauth/kakao/login/redirect&response_type=code';
+                    console.log("요청성공");
+                } else {
+                    // 에러 응답인 경우 처리
+                    console.error('Error:', response.statusText);
+                    console.log("요청실패");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+</body>
+</html>
